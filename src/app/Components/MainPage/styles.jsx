@@ -3,7 +3,7 @@ import { LandPlot, Clock, CalendarDays, CircleChevronRight } from 'lucide-react'
 
 export const BackgroundImage = styled(Box)(() => ({
   position: 'relative',
-  height: '1000px',
+  paddingBottom: 32,
   width: '100%',
 
   '&::before': {
@@ -18,6 +18,7 @@ export const BackgroundImage = styled(Box)(() => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     opacity: 0.3,
+    pointerEvents: 'none',
   },
 }))
 
@@ -26,13 +27,14 @@ export const MainMenuBox = styled(Box)({
   justifyContent: 'center',
   alignItems: 'center',
   flexGrow: 1,
-  gap: '150px',
+  gap: 'clamp(8px, 5vw, 80px)',
   padding: '2% 0',
   width: '100%',
-  height: '120px',
+  minHeight: 80,
+  flexWrap: 'wrap',
 
   '@media (max-width: 1439px)': {
-    gap: '100px',
+    gap: 'clamp(8px, 4vw, 60px)',
   },
 })
 
@@ -45,12 +47,13 @@ export const MainMenuStyles = styled(Button, {
     ? `1.5px solid ${theme.palette.color.green}`
     : isHovered
       ? `1.5px solid ${theme.palette.color.green}`
-      : 'null',
+      : '1.5px solid transparent',
   borderRadius: '5px',
   position: 'relative',
-  transition: 'border 0.05s ease',
+  transition: 'border-color 200ms ease, background-color 200ms ease',
   fontFamily: theme.typography.k2d,
-  fontSize: '30px',
+  fontSize: 'clamp(14px, 2.2vw, 24px)',
+  '&:hover': { borderColor: theme.palette.color.green, backgroundColor: '#0dbd7915' },
   padding: '0px 15px 0px 15px',
 
   '&::after': {
@@ -71,12 +74,19 @@ export const LatestMenu = styled(Box)(({ theme }) => ({
   border: `1.5px solid ${theme.palette.color.green}`,
   borderRadius: '10px',
   position: 'relative',
-  margin: '0px 40px 40px 40px',
-  height: 'calc(100% - 150px)',
-  padding: '90px 70px',
-  display: 'flex',
+  margin: '0 auto',
+  width: 'calc(100% - 32px)',
+  maxWidth: 1440,
+  padding: 'clamp(20px, 4vw, 64px)',
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, .8fr) auto',
+  '@media (max-width: 1100px)': {
+    gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.3fr)',
+    '& > :last-child': { justifySelf: 'end' },
+  },
+  '@media (max-width: 600px)': { gridTemplateColumns: 'minmax(0, 1fr)', gap: 24 },
   alignItems: 'center',
-  gap: 15,
+  gap: 32,
   backgroundColor: `rgba(0, 0, 0, 0.5)`,
 }))
 
@@ -88,7 +98,7 @@ export const LatestMovie = styled(Box)({
   backgroundRepeat: 'no-repeat',
   display: 'flex',
   justifyItems: 'flex-start',
-  height: '100%',
+  aspectRatio: '2 / 3',
   width: '100%',
   filter: 'brightness(0.8)',
 })
@@ -97,14 +107,13 @@ export const LatestMovieInfo = styled(Box)({
   backgroundSize: 'cover',
   display: 'flex',
   flexDirection: 'column',
-  height: '100%',
   width: '100%',
+  minWidth: 0,
 })
 
 export const LatestMovietitle = styled(Box)(({ theme }) => ({
   fontFamily: theme.typography.luckiestGuy,
   color: 'white',
-  height: '40%',
   width: '100%',
   display: 'flex',
   alignItems: 'center',
@@ -112,7 +121,7 @@ export const LatestMovietitle = styled(Box)(({ theme }) => ({
   padding: '10px',
   textAlign: 'center',
   lineHeight: '1',
-  fontSize: '7vw',
+  fontSize: 'clamp(48px, 6vw, 88px)',
 }))
 
 export const LatestMovieDescription = styled(Box)(({ theme }) => ({
@@ -120,10 +129,10 @@ export const LatestMovieDescription = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   textAlign: 'center',
-  height: '100%',
   width: '100%',
-  padding: '10px 30px',
-  fontSize: '1vw',
+  padding: '16px 0',
+  fontSize: 'clamp(15px, 1.25vw, 18px)',
+  lineHeight: 1.8,
   fontFamily: theme.typography.k2d,
   color: theme.palette.color.green,
 }))
@@ -131,11 +140,10 @@ export const LatestMovieDescription = styled(Box)(({ theme }) => ({
 export const LatestMovieBuy = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  height: '50%',
-  width: '80%',
+  width: '100%',
   justifyContent: 'center',
   padding: '10px 30px',
-  fontSize: '1vw',
+  fontSize: 16,
   fontFamily: theme.typography.k2d,
   color: theme.palette.color.green,
   border: `1.5px solid ${'white'}`,
@@ -148,7 +156,8 @@ export const NextArrow = styled(CircleChevronRight)(({ theme }) => ({
   strokeWidth: '1px',
   cursor: 'pointer',
   transition: 'filter 0.7s ease',
-  height: 'auto',
+  width: 48,
+  height: 48,
 
   '&:hover': {
     filter: `drop-shadow(0 0 20px ${theme.palette.color.green})`,
@@ -174,7 +183,10 @@ export const Booking = styled(Button)(({ theme }) => ({
   display: 'flex',
   color: 'white',
   fontFamily: theme.typography.k2d,
-  fontSize: '1.4vw',
+  fontSize: 18,
+  minHeight: 48,
+  transition: 'background-color 200ms ease, transform 200ms ease',
+  '&:hover': { backgroundColor: '#0dbd7925', transform: 'translateY(-2px)' },
   padding: '10px 20px',
   border: `1.5px solid ${theme.palette.color.green}`,
   borderRadius: '5px',

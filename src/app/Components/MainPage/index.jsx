@@ -18,14 +18,6 @@ import {
   Booking,
 } from './styles'
 
-const handleBookingClick = () => {
-  console.log('Book')
-}
-
-const handleNextClick = () => {
-  console.log('Next')
-}
-
 const MAIN_MENU_ITEMS = [
   { text: 'Movies' },
   { text: 'Concert' },
@@ -53,8 +45,8 @@ const MainPage = () => {
   }
 
   return (
-    <BackgroundImage>
-      <MainMenuBox>
+    <BackgroundImage id='home' component='section' aria-label='Featured event'>
+      <MainMenuBox component='nav' aria-label='Event categories'>
         {MAIN_MENU_ITEMS.map(({ text }) => (
           <MainMenuStyles
             key={text}
@@ -63,6 +55,9 @@ const MainPage = () => {
             onMouseEnter={() => handleMouseEnter(text)}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick(text)}
+            component='a'
+            href={text === 'Others' ? '#latest' : `#${text.toLowerCase()}`}
+            aria-current={isClicked === text ? 'true' : undefined}
           >
             {text}
           </MainMenuStyles>
@@ -70,9 +65,9 @@ const MainPage = () => {
       </MainMenuBox>
 
       <LatestMenu>
-        <LatestMovie />
+        <LatestMovie role='img' aria-label='Inside Out 2 poster' />
         <LatestMovieInfo>
-          <LatestMovietitle>
+          <LatestMovietitle component='h1'>
             INSIDE
             <br /> OUT 2
           </LatestMovietitle>
@@ -89,9 +84,18 @@ const MainPage = () => {
             <ClockIcon size={50} />
             <LocationIcon size={50} />
           </>
-          <Booking onClick={handleBookingClick}>Book Now</Booking>
+          <Booking component='a' href='#movies'>
+            Explore movies
+          </Booking>
         </LatestMovieBuy>
-        <NextArrow size={150} onClick={handleNextClick} />
+        <Booking
+          component='a'
+          href='#latest'
+          aria-label='Browse latest events'
+          sx={{ padding: 1, minWidth: 48 }}
+        >
+          <NextArrow aria-hidden='true' />
+        </Booking>
       </LatestMenu>
     </BackgroundImage>
   )
