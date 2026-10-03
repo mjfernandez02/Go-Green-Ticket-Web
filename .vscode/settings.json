@@ -4,8 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "always"
   },
-  "javascript.format.semicolons": "remove",
-  "typescript.format.semicolons": "remove",
   "editor.tabSize": 2,
   "editor.detectIndentation": false
 }
