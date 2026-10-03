@@ -11,18 +11,21 @@ const Container = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
-  height: '40px',
-  paddingRight: theme.spacing(10),
+  padding: '8px clamp(16px, 4vw, 64px)',
+  flexWrap: 'wrap',
+  height: 'auto',
+  minHeight: 40,
+  '@media (max-width: 600px)': { justifyContent: 'center' },
 }))
 
 const GreenText = styled(Typography)(({ theme }) => ({
-  fontSize: 22,
+  fontSize: 'clamp(12px, 2vw, 18px)',
   fontFamily: theme.typography.luckiestGuy,
   color: theme.palette.color.green,
 }))
 
 const WhiteText = styled(Typography)(({ theme }) => ({
-  fontSize: 22,
+  fontSize: 'clamp(12px, 2vw, 18px)',
   fontFamily: theme.typography.luckiestGuy,
   color: 'white',
 }))

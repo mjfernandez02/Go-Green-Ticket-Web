@@ -1,6 +1,7 @@
 'use client'
 
 import { Box, styled } from '@mui/material'
+import { useState } from 'react'
 
 import { TopHeader, Navbar, MainPage, MoviesPage, Faq } from '@/app/Components'
 
@@ -10,12 +11,13 @@ const StyledPage = styled(Box)(({ theme }) => ({
 }))
 
 export default function Home() {
+  const [query, setQuery] = useState('')
   return (
     <StyledPage>
       <TopHeader />
-      <Navbar />
+      <Navbar query={query} onQueryChange={setQuery} />
       <MainPage />
-      <MoviesPage />
+      <MoviesPage query={query} />
       <Faq />
     </StyledPage>
   )

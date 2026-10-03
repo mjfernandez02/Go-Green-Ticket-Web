@@ -81,17 +81,19 @@ const theatre = [
   { title: 'Theatre 8' },
 ]
 
-const MoviesPage = () => {
+const MoviesPage = ({ query = '' }) => {
+  const filter = (events) =>
+    events.filter((event) => event.title.toLowerCase().includes(query.trim().toLowerCase()))
   return (
-    <Box>
+    <Box id='latest' component='section' aria-label='Latest events'>
       <MoviesModule />
-      <MoviesCarousel genre={movies} />
+      <MoviesCarousel genre={filter(movies)} />
       <ConcertsModule />
-      <MoviesCarousel genre={concerts} />
+      <MoviesCarousel genre={filter(concerts)} />
       <SportsModule />
-      <MoviesCarousel genre={sports} />
+      <MoviesCarousel genre={filter(sports)} />
       <TheatreModule />
-      <MoviesCarousel genre={theatre} />
+      <MoviesCarousel genre={filter(theatre)} />
     </Box>
   )
 }
