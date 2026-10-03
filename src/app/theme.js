@@ -28,12 +28,15 @@ const k2d = K2D({
 const theme = createTheme({
   spacing: 3,
   typography: {
+    fontFamily: inter.style.fontFamily,
     roboto: roboto.style.fontFamily,
     inter: inter.style.fontFamily,
     luckiestGuy: luckiestGuy.style.fontFamily,
     k2d: k2d.style.fontFamily,
   },
   palette: {
+    mode: 'dark',
+    primary: { main: '#0DBD79' },
     color: {
       green: '#0DBD79',
       black: '#141414',
