@@ -5,11 +5,12 @@ import theme from '@/app/theme'
 
 const EventContainer = styled(Box)({
   display: 'flex',
-  padding: '20px 160px',
+  padding: '24px clamp(16px, 4vw, 64px)',
   textAlign: 'center',
   fontFamily: theme.typography.k2d,
   width: '100%',
-  gap: '40%',
+  gap: 20,
+  flexWrap: 'wrap',
   justifyContent: 'space-between',
   alignItems: 'center',
 })
@@ -21,16 +22,16 @@ const EventTitle = styled(Box)({
   borderRadius: '10px',
   fontFamily: theme.typography.k2d,
   color: 'white',
-  fontSize: '40px',
+  fontSize: 'clamp(24px, 3vw, 36px)',
   backgroundColor: theme.palette.color.grey,
   padding: '3px 10px',
-  flex: 1,
 })
 
 const SortContainer = styled(Box)({
   display: 'flex',
   alignItems: 'center',
-  gap: theme.spacing(5),
+  gap: 4,
+  flexWrap: 'wrap',
   justifyContent: 'flex-end',
 })
 
@@ -48,12 +49,14 @@ const sortOptions = [
 
 const EventModule = ({ title, sortOptions }) => {
   return (
-    <EventContainer>
-      <EventTitle>{title}</EventTitle>
+    <EventContainer id={title === 'Concerts' ? 'concert' : title.toLowerCase()}>
+      <EventTitle component='h2'>{title}</EventTitle>
       <SortContainer>
         <SortLabel>Sort by:</SortLabel>
         {sortOptions.map((option) => (
-          <SortButton key={option.value}>{option.label}</SortButton>
+          <SortButton key={option.value} disabled title='Sorting requires event details'>
+            {option.label}
+          </SortButton>
         ))}
       </SortContainer>
     </EventContainer>

@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 import { useRef } from 'react'
 import { CalendarDays, HandCoins, LandPlot } from 'lucide-react'
 
@@ -23,31 +23,55 @@ import {
 
 const MoviesCarousel = ({ genre }) => {
   const wrapperRef = useRef(null)
-  const movieWidth = 300
+  const getStep = () =>
+    wrapperRef.current?.firstElementChild?.getBoundingClientRect().width + 20 || 300
+  const getBehavior = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
 
   const handleNext = () => {
     if (wrapperRef.current) {
       const maxScrollLeft = wrapperRef.current.scrollWidth - wrapperRef.current.clientWidth
-      const newScrollLeft = Math.min(wrapperRef.current.scrollLeft + movieWidth, maxScrollLeft)
-      wrapperRef.current.scrollTo({ left: newScrollLeft, behavior: 'smooth' })
+      const newScrollLeft = Math.min(wrapperRef.current.scrollLeft + getStep(), maxScrollLeft)
+      wrapperRef.current.scrollTo({ left: newScrollLeft, behavior: getBehavior() })
     }
   }
 
   const handlePrev = () => {
     if (wrapperRef.current) {
-      const newScrollLeft = Math.max(wrapperRef.current.scrollLeft - movieWidth, 0)
-      wrapperRef.current.scrollTo({ left: newScrollLeft, behavior: 'smooth' })
+      const newScrollLeft = Math.max(wrapperRef.current.scrollLeft - getStep(), 0)
+      wrapperRef.current.scrollTo({ left: newScrollLeft, behavior: getBehavior() })
     }
   }
 
   return (
     <Box position='relative' width='100%'>
       <CarouselContainer>
-        <MoviesWrapper ref={wrapperRef}>
+        <MoviesWrapper
+          ref={wrapperRef}
+          tabIndex={0}
+          role='region'
+          aria-label='Event carousel'
+          onKeyDown={(event) => {
+            if (event.target !== event.currentTarget) return
+            if (event.key === 'ArrowRight') {
+              event.preventDefault()
+              handleNext()
+            }
+            if (event.key === 'ArrowLeft') {
+              event.preventDefault()
+              handlePrev()
+            }
+          }}
+        >
+          {genre.length === 0 && (
+            <Box role='status' sx={{ color: '#ccc', py: 8 }}>
+              No events match your search.
+            </Box>
+          )}
           {genre.map((movie, index) => (
             <MovieBox key={index}>
-              <MoviePicture />
-              <MovieTitle>{movie.title}</MovieTitle>
+              <MoviePicture aria-hidden='true'>GGT</MoviePicture>
+              <MovieTitle component='h3'>{movie.title}</MovieTitle>
               <MovieDetailsTop>
                 <Location>
                   <LandPlot size={30} />
@@ -60,17 +84,23 @@ const MoviesCarousel = ({ genre }) => {
                 <Price>
                   <HandCoins size={30} />
                 </Price>
-                <Booking>Book</Booking>
+                <Booking disabled title='Booking is not available in this preview'>
+                  Coming soon
+                </Booking>
               </MovieDetailsBottom>
             </MovieBox>
           ))}
         </MoviesWrapper>
         <ArrowContainer>
           <PrevArrowContainer>
-            <PrevArrow onClick={handlePrev} />
+            <IconButton aria-label='Previous events' onClick={handlePrev}>
+              <PrevArrow aria-hidden='true' />
+            </IconButton>
           </PrevArrowContainer>
           <NextArrowContainer>
-            <NextArrow onClick={handleNext} />
+            <IconButton aria-label='Next events' onClick={handleNext}>
+              <NextArrow aria-hidden='true' />
+            </IconButton>
           </NextArrowContainer>
         </ArrowContainer>
       </CarouselContainer>

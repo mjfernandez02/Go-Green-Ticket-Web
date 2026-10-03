@@ -12,7 +12,12 @@ export const CarouselContainer = styled(Box)({
 
 export const MoviesWrapper = styled(Box)({
   display: 'flex',
-  gap: '1px',
+  gap: 20,
+  width: '100%',
+  padding: '8px clamp(16px, 4vw, 64px) 24px',
+  scrollSnapType: 'x mandatory',
+  scrollPaddingInline: 'clamp(16px, 4vw, 64px)',
+  overscrollBehaviorX: 'contain',
   flexDirection: 'row',
   overflowX: 'auto',
   whiteSpace: 'nowrap',
@@ -38,23 +43,32 @@ export const MoviesWrapper = styled(Box)({
 })
 
 export const MovieBox = styled(Box)(({ theme }) => ({
-  minWidth: '306.5px',
-  height: '580px',
+  flex: '0 0 clamp(240px, 25vw, 306px)',
+  minWidth: 0,
+  scrollSnapAlign: 'start',
+  borderRadius: 16,
+  border: '1px solid #ffffff15',
+  transition: 'transform 220ms ease, border-color 220ms ease',
+  '@media (hover: hover)': {
+    '&:hover': { transform: 'translateY(-4px)', borderColor: theme.palette.color.green },
+  },
   backgroundColor: theme.palette.color.grey,
   display: 'flex',
   alignItems: 'center',
   flexDirection: 'column',
   color: 'white',
-  padding: '10px 20px',
-  gap: '5px',
+  padding: 16,
+  gap: 16,
   boxSizing: 'border-box',
   marginBottom: '10px',
 }))
 
 export const MoviePicture = styled(Box)({
   minWidth: '100%',
-  height: '100%',
-  backgroundColor: 'white',
+  aspectRatio: '2 / 3',
+  borderRadius: 10,
+  background:
+    'radial-gradient(ellipse at top, #0dbd7940, transparent 70%), linear-gradient(135deg, #263d35, #141414)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -70,7 +84,9 @@ export const MovieTitle = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   color: 'white',
   fontFamily: theme.typography.luckiestGuy,
-  fontSize: '40px',
+  fontSize: 'clamp(22px, 2.5vw, 30px)',
+  whiteSpace: 'normal',
+  textAlign: 'center',
 }))
 
 export const MovieDetailsTop = styled(Box)({
@@ -122,7 +138,7 @@ export const NextArrow = styled(ChevronRight)(({ theme }) => ({
   borderRadius: '50%',
   backgroundColor: 'rgba(0, 0, 0, 0.8)',
   marginRight: '5px',
-  opacity: 0.2,
+  opacity: 1,
 
   '&:hover': {
     filter: `drop-shadow(2px 4px 10px ${theme.palette.color.black})`,
@@ -140,7 +156,7 @@ export const PrevArrow = styled(ChevronLeft)(({ theme }) => ({
   borderRadius: '50%',
   backgroundColor: 'rgba(0, 0, 0, 0.8)',
   marginLeft: '5px',
-  opacity: 0.2,
+  opacity: 1,
 
   '&:hover': {
     filter: `drop-shadow(2px 4px 10px ${theme.palette.color.black})`,
