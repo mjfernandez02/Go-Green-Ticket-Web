@@ -1,6 +1,8 @@
 import { Box, Button, styled } from '@mui/material'
 import { LandPlot, Clock, CalendarDays, CircleChevronRight } from 'lucide-react'
 
+import { featuredMovie } from './data'
+
 export const BackgroundImage = styled(Box)(() => ({
   position: 'relative',
   paddingBottom: 32,
@@ -13,8 +15,7 @@ export const BackgroundImage = styled(Box)(() => ({
     left: 0,
     height: '100%',
     width: '100%',
-    backgroundImage:
-      'url(https://m.media-amazon.com/images/M/MV5BYTc1MDQ3NjAtOWEzMi00YzE1LWI2OWUtNjQ0OWJkMzI3MDhmXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg)',
+    backgroundImage: `url(${featuredMovie.poster})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     opacity: 0.3,
@@ -91,8 +92,7 @@ export const LatestMenu = styled(Box)(({ theme }) => ({
 }))
 
 export const LatestMovie = styled(Box)({
-  backgroundImage:
-    'url(https://m.media-amazon.com/images/M/MV5BYTc1MDQ3NjAtOWEzMi00YzE1LWI2OWUtNjQ0OWJkMzI3MDhmXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg)',
+  backgroundImage: `url(${featuredMovie.poster})`,
   backgroundSize: 'contain',
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
@@ -213,3 +213,7 @@ export const Booking = styled(Button)(({ theme }) => ({
     transform: 'translateX(-50%) scaleX(1)',
   },
 }))
+
+export const BrowseLatestButton = (props) => (
+  <Booking {...props} sx={{ padding: 1, minWidth: 48, ...props.sx }} />
+)

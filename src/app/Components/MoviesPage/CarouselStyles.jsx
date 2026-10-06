@@ -198,3 +198,7 @@ export const Booking = styled(Button)(({ theme }) => ({
   width: '100%',
   height: '100%',
 }))
+
+export const CarouselRoot = (props) => <Box position='relative' width='100%' {...props} />
+
+export const EmptyState = (props) => <Box {...props} sx={{ color: '#ccc', py: 8, ...props.sx }} />
