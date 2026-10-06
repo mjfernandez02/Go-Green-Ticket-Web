@@ -1,8 +1,10 @@
-import { Box, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { useRef } from 'react'
 import { CalendarDays, HandCoins, LandPlot } from 'lucide-react'
 
 import {
+  CarouselRoot,
+  EmptyState,
   CarouselContainer,
   MoviesWrapper,
   MovieBox,
@@ -44,7 +46,7 @@ const MoviesCarousel = ({ genre }) => {
   }
 
   return (
-    <Box position='relative' width='100%'>
+    <CarouselRoot>
       <CarouselContainer>
         <MoviesWrapper
           ref={wrapperRef}
@@ -64,9 +66,7 @@ const MoviesCarousel = ({ genre }) => {
           }}
         >
           {genre.length === 0 && (
-            <Box role='status' sx={{ color: '#ccc', py: 8 }}>
-              No events match your search.
-            </Box>
+            <EmptyState role='status'>No events match your search.</EmptyState>
           )}
           {genre.map((movie, index) => (
             <MovieBox key={index}>
@@ -104,7 +104,7 @@ const MoviesCarousel = ({ genre }) => {
           </NextArrowContainer>
         </ArrowContainer>
       </CarouselContainer>
-    </Box>
+    </CarouselRoot>
   )
 }
 

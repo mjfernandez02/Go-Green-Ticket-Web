@@ -16,15 +16,9 @@ import {
   ClockIcon,
   LocationIcon,
   Booking,
+  BrowseLatestButton,
 } from './styles'
-
-const MAIN_MENU_ITEMS = [
-  { text: 'Movies' },
-  { text: 'Concert' },
-  { text: 'Sports' },
-  { text: 'Theatre' },
-  { text: 'Others' },
-]
+import { MAIN_MENU_ITEMS, featuredMovie } from './data'
 
 const MainPage = () => {
   const [isHovered, setIsHovered] = useState(null)
@@ -65,18 +59,13 @@ const MainPage = () => {
       </MainMenuBox>
 
       <LatestMenu>
-        <LatestMovie role='img' aria-label='Inside Out 2 poster' />
+        <LatestMovie role='img' aria-label={`${featuredMovie.title} poster`} />
         <LatestMovieInfo>
           <LatestMovietitle component='h1'>
-            INSIDE
-            <br /> OUT 2
+            {featuredMovie.titleLines[0]}
+            <br /> {featuredMovie.titleLines[1]}
           </LatestMovietitle>
-          <LatestMovieDescription>
-            {`Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for
-            something entirely unexpected: new Emotions. Joy, Sadness, Anger, Fear and Disgust,
-            who've long been running a successful operation by all accounts, aren't sure how to feel
-            when Anxiety shows up. And it looks like she's not alone.`}
-          </LatestMovieDescription>
+          <LatestMovieDescription>{featuredMovie.description}</LatestMovieDescription>
         </LatestMovieInfo>
         <LatestMovieBuy>
           <>
@@ -88,14 +77,9 @@ const MainPage = () => {
             Explore movies
           </Booking>
         </LatestMovieBuy>
-        <Booking
-          component='a'
-          href='#latest'
-          aria-label='Browse latest events'
-          sx={{ padding: 1, minWidth: 48 }}
-        >
+        <BrowseLatestButton component='a' href='#latest' aria-label='Browse latest events'>
           <NextArrow aria-hidden='true' />
-        </Booking>
+        </BrowseLatestButton>
       </LatestMenu>
     </BackgroundImage>
   )
